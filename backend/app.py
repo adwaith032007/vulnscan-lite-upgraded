@@ -16,14 +16,17 @@ frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 CORS(
     app,
-    supports_credentials=True,
-    origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        frontend_url
-    ]
+    resources={
+        r"/api/*": {
+            "origins": [
+                "https://vulnscan-lite-upgraded-1.onrender.com",
+                "http://localhost:5173",
+                "http://127.0.0.1:5173"
+            ],
+            "supports_credentials": True
+        }
+    }
 )
-
 DB = os.path.join(os.path.dirname(__file__), "vulnscan.db")
 
 def db():
